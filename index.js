@@ -7,7 +7,8 @@ const cors = require("cors");
 const { logMensaje } = require("./utils/logger.js");
 
 // Rutas de la API
-const directorRoutes = require("./routes/directorRoutes");
+const campañasRoutes = require("./routes/campañaRoutes.js");
+const donacionesRoutes = require("./routes/donacionRoutes.js");
 
 // ============================================
 // INICIALIZACIÓN
@@ -33,7 +34,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // ============================================
 // RUTAS - API REST
 // ============================================
-app.use("/api/directors", directorRoutes);
+app.use("/api/campanas", campañasRoutes);
+app.use("/api/donaciones", donacionesRoutes);
 
 // ============================================
 // RUTAS - SPA (Catch-all)

@@ -1,0 +1,39 @@
+### GET /api/campanas recupera todas las campañas
+GET http://localhost:3000/api/campanas
+
+### GET /api/campanas/:id recupera una campaña
+GET http://localhost:3000/api/campanas/1
+
+### GET /api/campanas/:id recupera una campaña - NOT FOUND(404)
+GET http://localhost:3000/api/campanas/50
+
+### POST /api/campanas/ crea una campaña 
+POST http://localhost:3000/api/campanas
+Content-Type: application/json
+
+{
+    "nombre_campana": "Maratón Borrar",
+    "objetivo_litros_campana": "1.00",
+    "fecha_inicio_campana": "2024-03-01",
+    "fecha_fin_campana": "2024-03-05",
+    "urgente_campana": true
+}
+
+### Borrado de un campaña que no existe (404)
+DELETE http://localhost:3000/api/campanas/11
+
+### Borrado de un campaña
+DELETE http://localhost:3000/api/campanas/9
+
+### Actualización de un campaña
+PUT http://localhost:3000/api/campanas/10
+Content-Type: application/json
+
+{
+    "id_campana": 10,
+    "nombre_campana": "Maratón Borrar",
+    "objetivo_litros_campana": "1.00",
+    "fecha_inicio_campana": "2024-03-01",
+    "fecha_fin_campana": "2024-03-05",
+    "urgente_campana": false
+}
