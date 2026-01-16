@@ -9,11 +9,83 @@ const sequelize = require("../config/sequelize.js");
 const models = initModels(sequelize);
 // Recuperar el modelo director
 const Donacion = models.donacion;
+const Camapaña = models.campana;
+
+const { Op } = require("sequelize");
 
 class DonacionService {
-    async getAllDonaciones() {
-        // Devuelve todos los directores. Ajusta atributos si tu modelo usa otros nombres.
-        const result = await Donacion.findAll();
+    async getAllDonaciones(filtros) {
+
+
+        const whereClause = {};
+        if (filtros) {
+
+            if (filtros.id_campana) {
+                whereClause.id_campana = filtros.id_campana;
+            }
+
+            if (filtros.nombre_donante) {
+                whereClause.nombre_donante = {
+                    [Op.like]: `%${filtros.nombre_donante}%` // %texto% busca coincidencias parciales
+                };
+            }
+
+            if (filtros.peso_donante_min && filtros.peso_donante_max) {
+                whereClause.peso_donante = {
+                    [Op.between]: [filtros.peso_donante_min, filtros.peso_donante_max] // Entre min y max
+                };
+            } else if (filtros.peso_donante_min) {
+                whereClause.peso_donante = {
+                    [Op.gte]: [filtros.peso_donante_min] // Mayor o igual que
+                };
+            } else if (filtros.peso_donante_max) {
+                whereClause.peso_donante = {
+                    [Op.lte]: [filtros.peso_donante_max] // Menor o igual que
+                };
+            }
+
+            if (filtros.fecha_donacion_min && filtros.fecha_donacion_max) {
+                whereClause.fecha_donacion = {
+                    [Op.between]: [filtros.fecha_donacion_min, filtros.fecha_donacion_max] // Entre min y max
+                };
+            }else if (filtros.fecha_donacion_min) {
+                whereClause.fecha_donacion = {
+                    [Op.gte]: filtros.fecha_donacion_min // Mayor o igual que
+                };
+            } else if (filtros.fecha_donacion_max) {
+                whereClause.fecha_donacion = {
+                    [Op.lte]: filtros.fecha_donacion_max // Menor o igual que
+                };
+            }
+
+            if (filtros.es_primera_vez !== undefined) {
+                // Convertimos el string "true" a boolean true
+                whereClause.es_primera_vez = (filtros.es_primera_vez === 'true');
+            }
+
+            if (filtros.grupo_sanguineo) {
+                whereClause.grupo_sanguineo = {
+                    [Op.like]: `%${filtros.grupo_sanguineo}%` // %texto% busca coincidencias parciales
+                };
+            }
+        }
+
+        // Devuelve todas las donaciones y los nombres de las campañasas asociadas
+        /*SELECT c.nombre_campana,d.* FROM donacion d
+            INNER JOIN campaña c ON c.id_campana = d.id_donacion*/
+        const result = await Donacion.findAll({
+            where: whereClause,
+            include: [{
+                model: Camapaña, // Esto hace el "JOIN campaña c"
+                as: 'id_campana_campaña',
+
+                // "SELECT c.nombre_campana"
+                attributes: ['nombre_campana'],
+
+                // Convierte el LEFT JOIN (por defecto) en INNER JOIN
+                required: true
+            }]
+        });
         return result;
     }
 

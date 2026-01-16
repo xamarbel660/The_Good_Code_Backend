@@ -5,7 +5,10 @@ const donacionService = require("../services/donacionService.js");
 class DonacionController {
   async getAllDonaciones(req, res) {
     try {
-      const donaciones = await donacionService.getAllDonaciones();
+      //Recupero todos los parametros de la consulta, si lo hubiera
+      const filtros = req.query;
+
+      const donaciones = await donacionService.getAllDonaciones(filtros);
       return res.status(200).json({
         ok: true,
         datos: donaciones,

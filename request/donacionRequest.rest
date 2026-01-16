@@ -7,7 +7,29 @@ GET http://localhost:3000/api/donaciones/1
 ### GET /api/campanas/:id recupera una campaña - NOT FOUND(404)
 GET http://localhost:3000/api/donaciones/50
 
-### POST /api/campanas/ crea una campaña 
+### GET /api/donaciones/ con parametros recupera todas las donaciones que cumplen los filtros
+### id_campana=1
+GET http://localhost:3000/api/donaciones?id_campana=1
+### nombre_donante=J
+GET http://localhost:3000/api/donaciones?nombre_donante=J
+### peso_donante_min=90
+GET http://localhost:3000/api/donaciones?peso_donante_min=90
+### peso_donante_max=120
+GET http://localhost:3000/api/donaciones?peso_donante_max=80
+### peso_donante_min y peso_donante_max
+GET http://localhost:3000/api/donaciones?peso_donante_min=90&peso_donante_max=120
+### fecha_donacion_min=
+GET http://localhost:3000/api/donaciones?fecha_donacion_min=2024-03-02
+### fecha_donacion_max=
+GET http://localhost:3000/api/donaciones?fecha_donacion_max=2024-03-02
+### fecha_donacion_min y fecha_donacion_max
+GET http://localhost:3000/api/donaciones?fecha_donacion_min=2024-01-25&fecha_donacion_max=2024-03-02
+### es_primera_vez=
+GET http://localhost:3000/api/donaciones?es_primera_vez=true
+### grupo_sanguineo=
+GET http://localhost:3000/api/donaciones?grupo_sanguineo=0-
+
+### POST /api/donaciones/ crea una donación 
 POST http://localhost:3000/api/donaciones
 Content-Type: application/json
 

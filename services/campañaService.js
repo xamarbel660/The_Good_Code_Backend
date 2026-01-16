@@ -10,11 +10,59 @@ const models = initModels(sequelize);
 // Recuperar el modelo director
 const Camapaña = models.campana;
 
+const { Op } = require("sequelize");
+
 class CampañaService {
-  async getAllCampañas() {
-    // Devuelve todos los directores. Ajusta atributos si tu modelo usa otros nombres.
-    const result = await Camapaña.findAll();
+  async getAllCampañas(filtros) {
+    // Devuelve todos las campañas.
+    const whereClause = {};
+    if (filtros) {
+
+      if (filtros.nombre_campana) {
+        whereClause.nombre_campana = {
+          [Op.like]: `%${filtros.nombre_campana}%` // %texto% busca coincidencias parciales
+        };
+      }
+
+      if (filtros.objetivo_litros_campana_min && filtros.objetivo_litros_campana_max) {
+        whereClause.objetivo_litros_campana = {
+          [Op.between]: [filtros.objetivo_litros_campana_min, filtros.objetivo_litros_campana_max] // Entre min y max
+        };
+      } else if (filtros.objetivo_litros_campana_min) {
+        whereClause.objetivo_litros_campana = {
+          [Op.gte]: [filtros.objetivo_litros_campana_min] // Mayor o igual que
+        };
+      } else if (filtros.objetivo_litros_campana_max) {
+        whereClause.objetivo_litros_campana = {
+          [Op.lte]: [filtros.objetivo_litros_campana_max] // Menor o igual que
+        };
+      }
+
+      if (filtros.fecha_inicio_campana) {
+        whereClause.fecha_inicio_campana = {
+          [Op.gte]: filtros.fecha_inicio_campana // Mayor o igual que
+        };
+      }
+
+      if (filtros.fecha_fin_campana) {
+        whereClause.fecha_fin_campana = {
+          [Op.lte]: filtros.fecha_fin_campana // Menor o igual que
+        };
+      }
+
+      if (filtros.urgente_campana !== undefined) {
+        // Convertimos el string "true" a boolean true
+        whereClause.urgente_campana = (filtros.urgente_campana === 'true');
+      }
+    }
+
+    const result = await Camapaña.findAll(
+      {
+        where: whereClause
+      });
+
     return result;
+
   }
 
   async getCampañaById(id_campana) {
@@ -29,7 +77,7 @@ class CampañaService {
     return result;
   }
 
-    async deleteCampaña(id_campana) {
+  async deleteCampaña(id_campana) {
     const result = await Camapaña.destroy({
       where: {
         id_campana: id_campana,

@@ -5,7 +5,10 @@ const campañaService = require("../services/campañaService.js");
 class CampañaController {
   async getAllCampañas(req, res) {
     try {
-      const campañas = await campañaService.getAllCampañas();
+      //Recupero todos los parametros de la consulta, si lo hubiera
+      const filtros = req.query;
+
+      const campañas = await campañaService.getAllCampañas(filtros);
       return res.status(200).json({
         ok: true,
         datos: campañas,
@@ -99,7 +102,7 @@ class CampañaController {
 
   async updateCampaña(req, res) {
     const campaña = req.body; // Recuperamos datos para actualizar
-    const idCampaña = req.params.id; // dato de la ruta
+    const idCampaña = req.params.id; // id del la campaña a actualizar
 
     // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
     if (idCampaña != campaña.id_campana) {
@@ -125,8 +128,7 @@ class CampañaController {
             mensaje: "No encontrado o no modificado: " + idCampaña
           });
       } else {
-        // Al dar status 204 no se devuelva nada
-        // res.status(204).json(Respuesta.exito(null, "Plato actualizado"));
+        // Al dar status 204 no se devuelva nada;
         return res.status(204).send();
       }
     } catch (err) {
