@@ -1,10 +1,13 @@
 // ============================================
 // IMPORTACIONES
 // ============================================
+const config = require('./config/config');
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const { logMensaje } = require("./utils/logger.js");
+const PORT = config.port;
 
 // Rutas de la API
 const campañasRoutes = require("./routes/campañaRoutes.js");
@@ -47,6 +50,6 @@ app.use("/api/donaciones", donacionesRoutes);
 // ============================================
 // SERVIDOR
 // ============================================
-app.listen(port, () => {
-  logMensaje(`Servidor escuchando en el puerto ${port}`);
+app.listen(PORT, () => {
+  logMensaje(`Servidor escuchando en el puerto ${PORT}`);
 });
