@@ -77,10 +77,11 @@ class CampañaService {
     return result;
   }
 
-  async deleteCampaña(id_campana) {
+  async deleteCampaña(id_campaña) {
     const result = await Camapaña.destroy({
+      //Es sin ñ porque en la base de datos está sin ñ
       where: {
-        id_campana: id_campana,
+        id_campana: id_campaña,
       },
     });
     return result;

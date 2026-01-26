@@ -1,4 +1,4 @@
-// directorRoutes.js
+// donacionRoutes.js
 const express = require('express');
 const router = express.Router();
 const donacionController = require('../controllers/donacionController');

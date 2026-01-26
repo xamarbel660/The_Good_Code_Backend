@@ -41,13 +41,6 @@ app.use("/api/campanas", campañasRoutes);
 app.use("/api/donaciones", donacionesRoutes);
 
 // ============================================
-// RUTAS - SPA (Catch-all)
-// ============================================
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
-
-// ============================================
 // SERVIDOR
 // ============================================
 app.listen(PORT, () => {

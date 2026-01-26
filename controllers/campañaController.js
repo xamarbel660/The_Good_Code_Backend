@@ -1,4 +1,4 @@
-// controllers/directorController.js
+// controllers/campañaController.js
 const { logMensaje } = require("../utils/logger.js");
 const campañaService = require("../services/campañaService.js");
 
@@ -6,6 +6,7 @@ class CampañaController {
   async getAllCampañas(req, res) {
     try {
       //Recupero todos los parametros de la consulta, si lo hubiera
+      //Estos filtros se pasan al servicio
       const filtros = req.query;
 
       const campañas = await campañaService.getAllCampañas(filtros);
@@ -25,10 +26,10 @@ class CampañaController {
   }
 
   async getCampañaById(req, res) {
-    const id_campana = req.params.id;
+    const id_campaña = req.params.id;
     try {
-      const campaña = await campañaService.getCampañaById(id_campana);
-      // campaña != null -- se ha encontrado la campaña
+      const campaña = await campañaService.getCampañaById(id_campaña);
+      // campaña != null se ha encontrado la campaña
       if (campaña) {
         return res.status(200).json({
           ok: true,
@@ -74,15 +75,15 @@ class CampañaController {
   }
 
   async deleteCampaña(req, res) {
-    const id_campana = req.params.id;
+    const id_campaña = req.params.id;
 
     try {
-      const numFilas = await campañaService.deleteCampaña(id_campana);
+      const numFilas = await campañaService.deleteCampaña(id_campaña);
       if (numFilas == 0) {
         return res.status(404).json({
           ok: false,
           datos: null,
-          mensaje: "No encontrado: " + id_campana
+          mensaje: "No encontrado: " + id_campaña
         });
       } else {
         return res.status(204).send();
@@ -105,7 +106,7 @@ class CampañaController {
     const idCampaña = req.params.id; // id del la campaña a actualizar
 
     // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
-    if (idCampaña != campaña.id_campana) {
+    if (idCampaña != campaña.id_campaña) {
       return res
         .status(400)
         .json({

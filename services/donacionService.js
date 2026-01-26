@@ -84,7 +84,8 @@ class DonacionService {
 
                 // Convierte el LEFT JOIN (por defecto) en INNER JOIN
                 required: true
-            }]
+            }],
+            // raw: true  //
         });
         return result;
     }

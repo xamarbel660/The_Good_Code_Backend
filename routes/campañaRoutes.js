@@ -1,4 +1,4 @@
-// directorRoutes.js
+// campañasRoutes.js
 const express = require('express');
 const router = express.Router();
 const campañaController = require('../controllers/campañaController');

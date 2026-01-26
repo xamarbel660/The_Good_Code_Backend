@@ -80,22 +80,6 @@ DB_PORT=3306
 # SECRET_KEY=mi_clave_secreta
 ```
 
-## 🧪 Pruebas de Endpoints (.rest)
-
-El proyecto incluye archivos .rest en la carpeta **/request** para probar todas las operaciones CRUD y los filtrados usando la extensión REST Client de VSCode:
-
-campañaRequest.rest: Contiene las pruebas para la entidad Campañas.
-
-donacionRequest.rest: Contiene las pruebas para la entidad Donaciones.
-
-Funcionalidades implementadas:
-
-✅ CRUD Completo: Crear (POST), Leer (GET), Actualizar (PUT) y Borrar (DELETE).
-
-✅ Filtrado: Búsquedas parametrizadas mediante Query Strings (ej: /api/campanas?urgente_campana=true).
-
-✅ Relaciones: Gestión de la relación 1:N entre Campañas y Donaciones.
-
 ## ✒️ Autor
 
 Proyecto realizado por [Adrián Márquez Bellido](https://github.com/xamarbel660) para el módulo de HLC - 2026.
