@@ -106,7 +106,7 @@ class CampañaController {
     const idCampaña = req.params.id; // id del la campaña a actualizar
 
     // Petición errónea, no coincide el id del plato de la ruta con el del objeto a actualizar
-    if (idCampaña != campaña.id_campaña) {
+    if (idCampaña != campaña.id_campana) {
       return res
         .status(400)
         .json({
