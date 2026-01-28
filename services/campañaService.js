@@ -58,7 +58,8 @@ class CampañaService {
 
     const result = await Camapaña.findAll(
       {
-        where: whereClause
+        where: whereClause,
+        order: [['id_campana', 'ASC']],
       });
 
     return result;

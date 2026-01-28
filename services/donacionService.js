@@ -75,7 +75,7 @@ class DonacionService {
                 // Convierte el LEFT JOIN (por defecto) en INNER JOIN
                 required: true
             }],
-            // order: [['id_donacion', 'ASC']],
+            order: [['id_donacion', 'ASC']],
             // raw: true  //
         });
         return result;
