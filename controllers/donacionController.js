@@ -27,7 +27,7 @@ class DonacionController {
     async getAllDonacionesCards(req, res) {
     try {
       const page = parseInt(req.params.page) || 1;
-      const size = 6;
+      const size = 10;
 
       const donaciones = await donacionService.getAllDonacionesCards(page, size);
       const totalRegistros = donaciones.count;
