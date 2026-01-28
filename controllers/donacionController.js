@@ -24,6 +24,35 @@ class DonacionController {
     }
   }
 
+    async getAllDonacionesCards(req, res) {
+    try {
+      const page = parseInt(req.params.page) || 1;
+      const size = 6;
+
+      const donaciones = await donacionService.getAllDonacionesCards(page, size);
+      const totalRegistros = donaciones.count;
+      //Porque devuelve un count y luego rows
+      const donacioneslimpio = donaciones.rows;
+
+      return res.status(200).json({
+        ok: true,
+        pagination: {
+          page: page,
+          totalPages: Math.ceil(totalRegistros / size)
+        },
+        datos: donacioneslimpio,
+        mensaje: "Donaciones recuperadas correctamente",
+      });
+    } catch (err) {
+      logMensaje("Error en getAllDonacionesCards:", err);
+      return res.status(500).json({
+        ok: false,
+        datos: null,
+        mensaje: "Error al recuperar donaciones",
+      });
+    }
+  }
+
   async getDonacionById(req, res) {
     const id_donacion = req.params.id;
     try {

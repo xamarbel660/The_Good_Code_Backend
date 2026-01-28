@@ -5,6 +5,7 @@ const donacionController = require('../controllers/donacionController');
 
 router.get('/', donacionController.getAllDonaciones);
 router.get('/:id', donacionController.getDonacionById);
+router.get('/cards/:page', donacionController.getAllDonacionesCards);
 router.post('/', donacionController.createDonacion);
 router.put('/:id', donacionController.updateDonacion);
 router.delete('/:id', donacionController.deleteDonacion);

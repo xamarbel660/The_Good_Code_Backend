@@ -35,6 +35,10 @@ module.exports = function(sequelize, DataTypes) {
     grupo_sanguineo: {
       type: DataTypes.STRING(5),
       allowNull: false
+    },
+    URL_image: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
   }, {
     sequelize,
