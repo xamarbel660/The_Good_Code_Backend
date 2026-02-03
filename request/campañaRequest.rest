@@ -1,6 +1,9 @@
 ### GET /api/campanas recupera todas las campañas
 GET http://localhost:3000/api/campanas
 
+### GET /api/campanas/graph recupera todas las campañas
+GET http://localhost:3000/api/campanas/graph
+
 ### GET /api/campanas/:id recupera una campaña
 GET http://localhost:3000/api/campanas/1
 

@@ -9,6 +9,7 @@ const sequelize = require("../config/sequelize.js");
 const models = initModels(sequelize);
 // Recuperar el modelo director
 const Camapaña = models.campana;
+const Donacion = models.donacion;
 
 const { Op } = require("sequelize");
 
@@ -64,6 +65,27 @@ class CampañaService {
 
     return result;
 
+  }
+
+  async getCampañaDataGraph() {
+    const result = await Donacion.findAll({
+      attributes: [
+        "id_campana",
+        // Contamos las donaciones. Usamos 'id_donacion' que es la PK
+        [sequelize.fn("COUNT", sequelize.col("donacion.id_donacion")), "total"],
+      ],
+      include: [
+        {
+          model: Camapaña,
+          as: "id_campana_campaña", // <--- Nombre de la FK
+          attributes: ["nombre_campana"], // Solo traemos el nombre para la gráfica
+        },
+      ],
+      // Agrupamos por el ID y por el nombre (accediendo a través del nombre de la FK)
+      group: ["donacion.id_campana", "id_campana_campaña.nombre_campana", "id_campana_campaña.id_campana"],
+      raw: true,
+    });
+    return result;
   }
 
   async getCampañaById(id_campana) {

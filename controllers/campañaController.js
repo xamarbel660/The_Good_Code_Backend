@@ -25,6 +25,24 @@ class CampañaController {
     }
   }
 
+  async getCampañaDataGraph(req, res) {
+    try {
+      const campañasData = await campañaService.getCampañaDataGraph();
+      return res.status(200).json({
+        ok: true,
+        datos: campañasData,
+        mensaje: "Datos de campañas recuperados correctamente",
+      });
+    } catch (err) {
+      logMensaje("Error en getCampañaDataGraph:", err);
+      return res.status(500).json({
+        ok: false,
+        datos: null,
+        mensaje: "Error al recuperar datos de campañas",
+      });
+    }
+  }
+
   async getCampañaById(req, res) {
     const id_campaña = req.params.id;
     try {
