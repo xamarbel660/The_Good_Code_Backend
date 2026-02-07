@@ -1,6 +1,9 @@
 # 1. Usamos una imagen ligera de Node.js
 FROM node:20-alpine
 
+# --- AÑADE ESTA LÍNEA ---
+RUN apk add --no-cache curl
+
 # 2. Creamos el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app
 
