@@ -2,7 +2,7 @@
 FROM node:20-alpine
 
 # 2. Creamos el directorio de trabajo dentro del contenedor
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # 3. Copiamos los archivos de dependencias primero (para aprovechar la caché)
 COPY package*.json ./
