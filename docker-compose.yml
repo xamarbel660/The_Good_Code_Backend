@@ -56,6 +56,11 @@ services:
         - db
       environment:
         - NODE_ENV=development
+        - DB_HOST=db
+        - DB_NAME=${MYSQL_DATABASE}
+        - DB_USER=root
+        - DB_PASS=${MYSQL_ROOT_PASSWORD}
+        - DB_PORT=3306
       healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:${EXPRESS_PORT}"]
         interval: 10s
