@@ -46,7 +46,7 @@ Importa el archivo SQL proporcionado en la carpeta **/sql** para tener la estruc
 
 ### 4. Configurar las variables de entorno
 
-Crea un archivo llamado .env en la raíz del proyecto. Puedes copiar el contenido de la sección "Ejemplo de configuración" de abajo.
+Crea un archivo llamado `.env` en la raíz del proyecto. Puedes copiar el contenido de la sección "Ejemplo de configuración" de abajo.
 
 ### 5. Iniciar el servidor
 
@@ -60,11 +60,13 @@ Si todo es correcto, verás un mensaje en la consola indicando que el servidor c
 
 ## ⚙️ Ejemplo de configuración (.env)
 
-Crea un archivo .env en la raíz del proyecto y copia la siguiente configuración:
+Crea un archivo `.env` en la raíz del proyecto y copia la siguiente configuración:
 
-```Fragmento de código
+```properties
 # --- Configuración del Servidor ---
 PORT=3000
+NODE_ENV=development
+
 # --- Configuración de la Base de Datos (MySQL) ---
 # Host de la base de datos (habitualmente localhost o la IP de tu Docker)
 DB_HOST=localhost
@@ -76,9 +78,58 @@ DB_PASSWORD=test
 DB_NAME=the_good_code
 # Puerto de MySQL (3306 es el estándar)
 DB_PORT=3306
+
 # (Opcional) Clave secreta si se implementara JWT
-# SECRET_KEY=mi_clave_secreta
+SECRET_KEY=mi_clave_secreta
 ```
+
+## 📡 Documentación de la API
+
+La API expone los siguientes endpoints principales:
+
+### 🩸 Campañas (`/api/campanas`)
+
+Gestión de las campañas de donación.
+
+* **GET `/api/campanas`**: Recupera todas las campañas. Admite los siguientes filtros por **query params**:
+  * `nombre_campana`: Filtrar por nombre (parcial).
+  * `objetivo_litros_campana_min` / `objetivo_litros_campana_max`: Rango de litros objetivo.
+  * `fecha_inicio_campana` / `fecha_fin_campana`: Filtrar por fechas.
+  * `urgente_campana`: Filtrar por urgencia (`true`/`false`).
+* **GET `/api/campanas/graph`**: Datos optimizados para visualización en gráficas.
+* **GET `/api/campanas/:id`**: Obtiene el detalle de una campaña específica.
+* **POST `/api/campanas`**: Crea una nueva campaña.
+* **PUT `/api/campanas/:id`**: Actualiza una campaña existente.
+* **DELETE `/api/campanas/:id`**: Elimina una campaña.
+
+### 🎁 Donaciones (`/api/donaciones`)
+
+Registro y consulta de donaciones realizadas.
+
+* **GET `/api/donaciones`**: Listado de todas las donaciones.
+* **GET `/api/donaciones/:id`**: Detalle de una donación.
+* **GET `/api/donaciones/cards/:page`**: Obtiene donaciones paginadas para vista de tarjetas.
+* **POST `/api/donaciones`**: Registra una nueva donación.
+* **PUT `/api/donaciones/:id`**: Modifica una donación.
+* **DELETE `/api/donaciones/:id`**: Elimina un registro de donación.
+
+## 🧪 Tests
+
+El proyecto incluye pruebas automatizadas con **Jest**. Para ejecutarlas:
+
+```Bash
+npm test
+```
+
+## 🔧 Comandos Útiles
+
+Si realizas cambios en la estructura de la base de datos, puedes regenerar los modelos de Sequelize usando `sequelize-auto`:
+
+```Bash
+node ./config/sequelize-auto.js
+```
+
+*Nota: Asegúrate de tener las credenciales correctas en tu configuración antes de ejecutar este script.*
 
 ## ✒️ Autor
 
