@@ -56,6 +56,20 @@ services:
         - db
       environment:
         - NODE_ENV=development
+        # 1. DB_HOST: Forzamos que sea 'db' (el nombre del servicio en docker)
+        - DB_HOST=db
+        
+        # 2. DB_USER: Mapeamos tu variable del .env
+        - DB_USER=${DB_USER}
+        
+        # 3. DB_PASSWORD: OJO AQUI. Tu config.js pide DB_PASSWORD, pero tu .env se llama DB_PASS
+        - DB_PASSWORD=${DB_PASS}
+        
+        # 4. DB_NAME: Mapeamos el nombre
+        - DB_NAME=${DB_NAME}
+        
+        # 5. DB_PORT
+        - DB_PORT=${DB_PORT}
       healthcheck:
         test: ["CMD", "curl", "-f", "http://localhost:${EXPRESS_PORT}"]
         interval: 10s

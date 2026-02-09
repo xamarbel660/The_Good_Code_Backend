@@ -43,6 +43,11 @@ app.use("/api/donaciones", donacionesRoutes);
 // ============================================
 // SERVIDOR
 // ============================================
-app.listen(PORT, () => {
-  logMensaje(`Servidor escuchando en el puerto ${PORT}`);
-});
+// Iniciar el servidor solo si no estamos en modo de prueba
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    logMensaje(`Servidor escuchando en el puerto ${PORT}`);
+  });
+}
+// Exportamos la aplicación para poder hacer pruebas
+module.exports = app;
